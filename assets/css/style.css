@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+:root {
+    --black: #000000;
+    --blue: #6dabe6;
+    --blue-2: #649cd1;
+    --dark-grey: #e2e2e2;
+    --darkest-grey: #d1d1d1;
+    --font-color: #555555;
+    --grey: #dfdfdf;
+    --light-grey: #f3f3f3;
+    --white: #ffffff; 
+}
+
+body {
+    align-items: center;
+    background-color: var(--light-grey);
+    display: flex;
+    font-family: 'Roboto', sans-serif;
+    font-size: 25px;
+    height: 97vh;
+    justify-content: center;
+}
+
+.calculator {
+    align-content: center;
+    background-color: var(--white);
+    border: 1px solid var(--darkest-grey);
+    border-radius: .5rem;
+    display: flex;
+    flex-direction: column;
+    height: 65vh;
+    justify-content: center;
+    margin: 0;
+    padding: 1rem;
+    user-select: none;
+}
+
+.calculator__numbers-and-equal {
+    display: flex;
+    flex-direction: row;
+}
+
+.calculator__left-side {
+    align-content: flex-start;
+}
+
+.calculator__right-side {
+    align-items: stretch;
+    display: flex;
+    height: 100%;
+}
+
+.calculator__display {
+    border: 1px solid var(--darkest-grey);
+    color: var(--font-color);
+    font-size: 25px;
+    margin: .5rem;
+    padding: .8rem .5rem;
+    width: 23rem;
+    height: 25px;
+}
+
+.calculator__row {
+    display: flex;
+    flex-direction: row;
+}
+
+.btn {
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    height: 3rem;
+    justify-content: center;
+    margin: .6rem;
+    width: 5rem;
+}
+
+.btn--sign {
+    background-color: var(--grey);
+    border: 1px solid var(--darkest-grey);
+    color: var(--font-color);
+}
+.btn--sign:hover {
+    background-color: var(--darkest-grey);
+}
+
+.btn--number, .btn--delete, .btn--dot {
+    background-color: var(--light-grey);
+    border: 1px solid var(--dark-grey);
+    color: var(--font-color);
+}
+.btn--number:hover, .btn--delete:hover, .btn--dot:hover {
+    background-color: var(--grey);
+}
+
+.btn--sum {
+    background-color: var(--blue);
+    border: 1px solid var(--blue);
+    color: var(--white);
+    height: auto;
+}
+.btn--sum:hover {
+    background-color: var(--blue-2);
+}
