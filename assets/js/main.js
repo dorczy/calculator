@@ -1,56 +1,72 @@
 'use strict'
 
-const addition = (a, b) => a + b;
+//let steps = 0;
+
+//kijelző div:
+const displayDiv = document.querySelector('.calculator__display');
+//számgombok:
+const numberDivs = Array.from(document.querySelectorAll('.btn--number'));
+//összeadás gomb:
 const additionBtn = document.querySelector('.btn--addition');
-
-const subtraction = (a, b) => a - b;
+//kivonás gomb:
 const subtractionBtn = document.querySelector('.btn--subtraction');
-
-const multiplication = (a, b) => a * b;
+//szorzás gomb:
 const multiplicationBtn = document.querySelector('.btn--multiplication');
-
-const division = (a, b) => a / b;
+//osztás gomb:
 const divisionBtn = document.querySelector('.btn--division');
 
-const point = a => a + '.';
 
-let calculatorArr = [];
-let steps = 0;
-
-const displayDiv = document.querySelector('.calculator__display');
-const numberDivs = Array.from(document.querySelectorAll('.btn--number'));
-
-
-
-//jelgombra rákattintanak, tartalmának kinyerése
-const operationSignAdder = (btn) => {
-    btn.addEventListener('click', () => {
-        let currentValue = displayDiv.textContent;
-        displayDiv.textContent = currentValue + btn.textContent;
-        calculatorArr.push(btn.textContent);
-     return calculatorArr }) 
+const calcs = {
+    '+': function (a, b) { return a + b },
+    '-': function (a, b) { return a - b },
+    '/': function (a, b) { return a / b },
+    '*': function (a, b) { return a * b }
 }
-operationSignAdder(additionBtn);
-operationSignAdder(subtractionBtn);
-operationSignAdder(multiplicationBtn);
-operationSignAdder(divisionBtn);
 
+const signs = ['+', '-', '*', '/'];
+
+let calculatorStr = '';
 
 //számgombra rákattintanak, tartalmának kinyerése
 const contentExtraction = () => {  
     numberDivs.map(item => {
         item.addEventListener('click', () => {
+/*             if(steps < 1) {
+                let currentValue = displayDiv.textContent;
+                displayDiv.textContent = currentValue + item.textContent;
+                calculatorStr.concat(item.dataset.value);
+                return steps += 1  
+            } */
             let currentValue = displayDiv.textContent;
             displayDiv.textContent = currentValue + item.textContent;
-            calculatorArr.push(item.textContent);
-        return calculatorArr
+            calculatorStr.concat(item.dataset.value);
+            return calculatorStr;
         } )
-    } ) 
+     } )
 };
 contentExtraction();
 
 
+//jelgombra rákattintanak, tartalmának kinyerése
+ const operationSignAdder = (btn) => {
+    btn.addEventListener('click', () => {
+/*         if(steps >= 1) {
+            let currentValue = displayDiv.textContent;
+            displayDiv.textContent = currentValue + btn.textContent;
+            calculatorStr.concat(btn.dataset.value);
+            return calculatorStr;
+        }  */
+        let currentValue = displayDiv.textContent;
+        displayDiv.textContent = `${currentValue} ${btn.dataset.value} `;
+        calculatorStr.concat(btn.dataset.value);
+        return calculatorStr;
+    }) 
+}
 
+operationSignAdder(additionBtn);
+operationSignAdder(subtractionBtn);
+operationSignAdder(multiplicationBtn);
+operationSignAdder(divisionBtn);
 
 
 //C gombbal törlés
@@ -59,13 +75,20 @@ const deleteBtn = document.querySelector('.btn--delete');
 const deleteDisplayContent = () => {
     deleteBtn.addEventListener('click', () => {
         displayDiv.textContent = '';
-        calculatorArr = [];
     })
 }
 deleteDisplayContent();
 
 
-
+//tizedespont
+const pointBtn = document.querySelector('.btn--dot');
+const point = () => {
+    pointBtn.addEventListener('click', () => {
+        const currentValue = displayDiv.textContent;
+        return displayDiv.textContent = `${currentValue}.`
+    } )
+};
+point();
 
 
 //egyenlőségjel
@@ -73,55 +96,16 @@ const equalBtn = document.querySelector('.btn--sum');
 
 const result = () => {
     equalBtn.addEventListener('click', () => {
-        console.log(calculatorArr);
-        for (let i = 0; i < calculatorArr.length; i += 1) {
-            if (calculatorArr[i] == calculatorArr[i+1]) {
-                calculatorArr[i] = calculatorArr[i].concat(calculatorArr[i+1]);
-                calculatorArr[i+1] = '';
-            }
-        }
-
-        const szammaAlakitas = calculatorArr.map( item => parseFloat(item));
-        console.log(szammaAlakitas);
-        
-
-       /*  calculatorArr.map(item => {
-            parseInt(item);
-            if (typeof item === "string") {
-                signs.push(item)
-            } else {
-                numbers.push(item)
-            }
-        return signs, numbers
-        } )  */
+        let numbers = [];
+        let signs = [];
+        let resultStr = (displayDiv.textContent).split(' ');
+        console.log(resultStr);
+        let parsedArr = resultStr.map(item => parseFloat(item));
+        parsedArr.map(item => typeof item !== 'NaN' ? numbers.push(item) : '');
+        console.log(numbers);
+        console.log(signs);
     } )
 }
 result();
 
-//a tömb elemeire: ha a tömb i-edik eleme number, és a tömb i+1-edik eleme number, akkor fűzze össze azt a 2-t
-//mivel emiatt a tömb elemeinek száma csökkenni fog, térjen vissza egy új tömmbel
 
-
-
-
-
-
-
-
-
-
-
-
-
-let arr1 = ['1', '1', '+', '5'];
-/* arr1.map((item, index) => {
-    if(item[index] === item[index + 1]) {
-        item[index] = item[index] + item[index + 1]
-    } return item[index] }); */
-
-for (let i = 0; i < arr1.length; i += 1) {
-    if (arr1[i] === arr1[i+1]) {
-        arr1[i] = arr1[i].concat(arr1[i+1]);
-        arr1[i+1] = '';
-    }
-}
