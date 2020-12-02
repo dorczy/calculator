@@ -89,13 +89,13 @@ const calculation = (arr1, arr2) => {
         if(calcs.hasOwnProperty(keys)) {
             for (let i = 0; i < arr1.length; i += 1) {
                 if(counter == 0) {
-                    resultValue = calcs[mySigns[0]](arr1[0], arr1[1]);
+                    resultValue = calcs[arr2[0]](arr1[0], arr1[1]);
                     arr1.splice(0, 2);
                     arr2.splice(0, 1);
                     counter += 1;
                 }
                 if(arr1.length > 0) {
-                    resultValue = calcs[mySigns[0]](resultValue, arr1[0]);
+                    resultValue = calcs[arr2[0]](resultValue, arr1[0]);
                     arr1.splice(0, 1);
                     arr2.splice(0, 1);
                 }
