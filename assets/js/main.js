@@ -1,6 +1,6 @@
 'use strict'
 
-//let steps = 0;
+let steps = 0;
 
 //kijelző div:
 const displayDiv = document.querySelector('.calculator__display');
@@ -23,24 +23,17 @@ const calcs = {
     '*': function (a, b) { return a * b }
 }
 
-const signs = ['+', '-', '*', '/'];
+//const signs = ['+', '-', '*', '/'];
 
-let calculatorStr = '';
 
 //számgombra rákattintanak, tartalmának kinyerése
 const contentExtraction = () => {  
     numberDivs.map(item => {
         item.addEventListener('click', () => {
-/*             if(steps < 1) {
-                let currentValue = displayDiv.textContent;
-                displayDiv.textContent = currentValue + item.textContent;
-                calculatorStr.concat(item.dataset.value);
-                return steps += 1  
-            } */
             let currentValue = displayDiv.textContent;
             displayDiv.textContent = currentValue + item.textContent;
-            calculatorStr.concat(item.dataset.value);
-            return calculatorStr;
+            return steps += 1  
+
         } )
      } )
 };
@@ -50,16 +43,10 @@ contentExtraction();
 //jelgombra rákattintanak, tartalmának kinyerése
  const operationSignAdder = (btn) => {
     btn.addEventListener('click', () => {
-/*         if(steps >= 1) {
+        if(steps >= 1) {
             let currentValue = displayDiv.textContent;
-            displayDiv.textContent = currentValue + btn.textContent;
-            calculatorStr.concat(btn.dataset.value);
-            return calculatorStr;
-        }  */
-        let currentValue = displayDiv.textContent;
-        displayDiv.textContent = `${currentValue} ${btn.dataset.value} `;
-        calculatorStr.concat(btn.dataset.value);
-        return calculatorStr;
+            displayDiv.textContent = `${currentValue} ${btn.dataset.value} `;
+        }
     }) 
 }
 
@@ -98,14 +85,27 @@ const result = () => {
     equalBtn.addEventListener('click', () => {
         let numbers = [];
         let signs = [];
-        let resultStr = (displayDiv.textContent).split(' ');
-        console.log(resultStr);
-        let parsedArr = resultStr.map(item => parseFloat(item));
-        parsedArr.map(item => typeof item !== 'NaN' ? numbers.push(item) : '');
+
+        //kiolvasom, szétválogatom:
+        let resultStrToArray = (displayDiv.textContent).split(' ');
+        console.log(resultStrToArray);
+        
+        //szétszedem számokra és jelekre:
+        resultStrToArray.filter( (item, index) => 
+            index % 2 === 0 ? numbers.push(item) : signs.push(item) );
         console.log(numbers);
         console.log(signs);
+        
+        //ERROR: ha a számok tömbben van üres string, akkor írja ki, hogy ERROR:
+        if(numbers.some(item => item === "")) {
+            displayDiv.textContent = "ERROR";
+        }
+        
+        //számokat átalakítom számmá:
+        let parsedArr = numbers.map(item => parseFloat(item));
+        console.log(parsedArr);
+
+        steps = 0;
     } )
 }
 result();
-
-
