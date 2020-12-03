@@ -25,8 +25,9 @@ const contentExtraction = () => {
         } )
     }
 };
+console.log(resultOnScreen);
 contentExtraction();
-
+console.log(resultOnScreen);
 const signsDivs = Array.from(document.querySelectorAll('.btn--sign'));
 
 const operationSignAdder = () => {
@@ -46,6 +47,10 @@ const deleteDisplayContent = () => {
         .querySelector('.btn--delete')
         .addEventListener('click', () => {
             displayDiv.textContent = '';
+            myNumbers = [];
+            mySigns = [];
+            steps = 0;
+            return resultOnScreen = false;
         })
 };
 deleteDisplayContent();
@@ -114,7 +119,9 @@ const result = () => {
         parsedNumbersArr(myNumbers);
         steps = 0;
         calculation(parsedNumbersArr(myNumbers), mySigns);
-        return resultOnScreen = true;
     } )
+    return resultOnScreen = true;
+    
 }
 result();
+console.log(resultOnScreen);
