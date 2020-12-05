@@ -15,8 +15,8 @@ const numberDivs = Array.from(document.querySelectorAll('.btn--number'));
 let steps = 0;
 let resultOnScreen = false;
 
-const contentExtraction = () => {  
-    if( resultOnScreen === false ) {
+const contentExtraction = () => {
+    if (resultOnScreen === false ) {
         numberDivs.map(item => {
             item.addEventListener('click', () => {
                 displayDiv.textContent += item.textContent;
@@ -25,9 +25,8 @@ const contentExtraction = () => {
         } )
     }
 };
-console.log(resultOnScreen);
 contentExtraction();
-console.log(resultOnScreen);
+
 const signsDivs = Array.from(document.querySelectorAll('.btn--sign'));
 
 const operationSignAdder = () => {
@@ -55,7 +54,6 @@ const deleteDisplayContent = () => {
 };
 deleteDisplayContent();
 
-
 const point = () => {
     document
         .querySelector('.btn--dot')
@@ -82,9 +80,14 @@ const errorSearch = (arr) => {
     }
 };
 
+const resultNaN = () => {
+    if(displayDiv.textContent === "NaN") {
+        displayDiv.textContent = "ERROR"
+    }
+}
+
 const parsedNumbersArr = (arr) => {
     return arr.map(item => parseFloat(item));
-    
 }
 
 const calculation = (arr1, arr2) => {
@@ -119,9 +122,10 @@ const result = () => {
         parsedNumbersArr(myNumbers);
         steps = 0;
         calculation(parsedNumbersArr(myNumbers), mySigns);
+        resultNaN();
+        myNumbers = [];
+        mySigns = [];
+        return resultOnScreen = true;
     } )
-    return resultOnScreen = true;
-    
 }
 result();
-console.log(resultOnScreen);
